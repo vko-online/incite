@@ -23,19 +23,22 @@ class App extends PureComponent {
     fetch(API_URL, this.option)  
       .then(res => res.json())
       .then(resJson => resJson.response)
-      .then((data) => {
-        this.setState({ data })
-      })
+      .then(data => this.setState({ data }))
+  }
+
+  renderPreloader () {
+    return (
+      <View style={[styles.container, styles.container__loading]}>
+        <Text>Loading...</Text>
+      </View>
+    )
   }
   
   render () {
     const { data } = this.state
+
     if (isNull(data)) {
-      return (
-        <View style={[styles.container, styles.container__loading]}>
-          <Text>Loading...</Text>
-        </View>
-      )
+      return this.renderPreloader()
     }
 
     return (
